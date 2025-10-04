@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoArt | Gallery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #2a2a2a);
+      color: #E6DCAE;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+    /* ===== HEADER & NAV ===== */
+    header {
+      background-color: rgba(25, 25, 25, 0.92);
+      padding: 1rem 0;
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(138, 177, 115, 0.5);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 60px; /* Added height for logo alignment */
+    }
+
+    /* Navigation Logo */
+    .nav-logo-link {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+    }
+    .nav-logo {
+      height: 55px;
+      width: auto;
+      border-radius: 50%;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 3px solid rgba(230, 220, 174, 0.2);
+      background-color: #ffffff; /* Added white background */
+    }
+    .nav-logo:hover {
+      transform: rotate(8deg) scale(1.15);
+      border-color: #8AB173;
+      box-shadow: 0 10px 25px rgba(138, 177, 115, 0.4);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      transition: all 0.3s ease;
+    }
+
+    nav a {
+      color: #E6DCAE;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      border: 2px solid transparent;
+      transition: all 0.35s ease;
+    }
+
+    nav a:hover, nav a.active {
+      background: linear-gradient(90deg, #8AB173, #E6DCAE);
+      color: #1a1a1a;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(138, 177, 115, 0.6);
+    }
+
+    /* Hamburger for mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      position: absolute;
+      right: 0;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: #E6DCAE;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* ===== MAIN ===== */
+    main { padding: 5rem 0 3rem; }
+
+    .section-title {
+      text-align:center;
+      font-size:2.8rem;
+      color:#8AB173;
+      font-weight:700;
+      margin-bottom:3.5rem;
+      text-shadow:3px 3px 6px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .section-title::after {
+      content:''; display:block; width:120px; height:5px;
+      margin:1.2rem auto;
+      border-radius:3px;
+      background:linear-gradient(to right,transparent,#8AB173,#E6DCAE,transparent);
+    }
+
+    /* GALLERY GRID */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* Default to 1 column for mobile */
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius:15px;
+      border: 1px solid rgba(138,177,115,0.3);
+      box-shadow:0 8px 25px rgba(0,0,0,0.4);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all .7s ease;
+    }
+    .gallery-item.visible { opacity:1; transform:translateY(0); }
+    .gallery-item img {
+      width:100%; height:100%; object-fit:cover;
+      display:block; transition: all 0.6s ease;
+      filter: grayscale(70%) brightness(1.1);
+    }
+
+    .gallery-item:hover img {
+      transform:scale(1.1) rotate(2deg);
+      filter:grayscale(0%) brightness(1.3) hue-rotate(10deg);
+    }
+    .gallery-caption {
+      position:absolute;
+      bottom:0; left:0; right:0;
+      background:rgba(0,0,0,0.6);
+      padding:0.8rem; text-align:center;
+      font-size:1.1rem;
+      color:#F8F0F0;
+      opacity:0; transform:translateY(100%);
+      transition:all .5s ease;
+    }
+    .gallery-item:hover .gallery-caption {
+      opacity:1; transform:translateY(0);
+    }
+
+    /* Social Section */
+    .social-section {
+      text-align: center; margin: 5rem auto; padding: 2rem;
+      background: rgba(40, 40, 40, 0.4); border-radius: 20px; max-width: 900px;
+    }
+    .social-title { font-size: 1.8rem; color: #F8F0F0; margin-bottom: 2rem; }
+    .social-links { display: flex; justify-content: center; gap: 3.5rem; flex-wrap: wrap; margin: 2rem 0; }
+    .social-link {
+      display: inline-block; padding: 1.5rem; border-radius: 20px;
+      background: rgba(255,255,255,0.05); transition: all 0.4s ease;
+      transform: perspective(500px) rotateX(0deg);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .social-link:hover {
+      transform: perspective(500px) rotateX(10deg) translateY(-10px) scale(1.1);
+      background: rgba(138, 177, 115, 0.25);
+      box-shadow: 0 15px 35px rgba(138, 177, 115, 0.5);
+    }
+    .social-link img {
+      width: 120px; height: auto; filter: grayscale(70%) brightness(1.2); transition: all 0.4s ease;
+    }
+    .social-link:hover img { filter: grayscale(0%) brightness(1.4) hue-rotate(15deg); transform: rotate(8deg); }
+
+    /* FOOTER */
+    footer {
+      background:#121212;
+      padding:2rem 0;
+      text-align:center;
+      font-size:.95rem;
+      color:#aaa;
+      border-top:3px solid rgba(138,177,115,0.4);
+      margin-top:2rem; /* Adjusted margin */
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media(min-width: 600px) {
+        .gallery-grid {
+            grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+        }
+    }
+
+    @media(min-width: 992px) {
+        .gallery-grid {
+            grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
+        }
+    }
+
+    @media(max-width:768px){
+      .hamburger { display: flex; }
+      nav ul {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: rgba(25,25,25,0.95);
+        flex-direction: column;
+        width: 220px;
+        padding: 1rem;
+        display: none;
+        border-radius: 10px;
+      }
+      nav ul.show { display: flex; }
+      .section-title{font-size:2.2rem;}
+    }
+    @media(max-width:480px){
+      .section-title{font-size:2rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="nav-logo-link">
+          <img src="images/eco-art-logo.png" alt="EcoArt Logo" class="nav-logo">
+        </a>
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2 class="section-title">Our Gallery</h2>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="images/267e649d5254024ac3ed612dec0e1dc6.jpg" alt="Events">
+            <div class="gallery-caption">Events</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/coast-6310250_1280.jpg" alt="Photographs">
+            <div class="gallery-caption">Photographs</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/maxresdefault (2).jpg" alt="Drawing & illustration">
+            <div class="gallery-caption">Drawing & Illustration</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/waterfall-5365926_1280.jpg" alt="Videos">
+            <div class="gallery-caption">Videos</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Indie-and-Folk-Songs-Celebrating-the-Sun-1.jpg" alt="Songs & Soundscapes">
+            <div class="gallery-caption">Songs & Soundscapes</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/MMoser-New-York-Sustainability-Services-Plant-Life.jpg" alt="Eco-Architecture & Design Plans">
+            <div class="gallery-caption">Eco-Architecture & Design Plans</div>
+        </div>
+      </div>
+      
+      <div class="social-section">
+        <h3 class="social-title">Connect With EcoArt</h3>
+        <div class="social-links">
+          <a href="https://www.behance.net/RocheOmal" target="_blank" class="social-link"><img src="images/Behance-Symbol.png" alt="Behance Portfolio"></a>
+          <a href="https://www.linkedin.com/in/rocheomal3/" target="_blank" class="social-link"><img src="images/linkedin-logo.png" alt="LinkedIn Profile"></a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 EcoArt. All Rights Reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    // Stagger fade-in for gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach((item, index) => {
+      setTimeout(() => item.classList.add('visible'), index * 200);
+    });
+
+    // Social links animation
+    $(document).ready(function() {
+      $('.social-link').each(function(index) {
+        $(this).css({ 'opacity': '0', 'transform': 'translateY(40px)', 'transition': 'all 0.8s ease' });
+        setTimeout(() => { $(this).animate({ 'opacity': '1', 'transform': 'translateY(0) rotateX(0deg)' }, 800); }, index * 300);
+      });
+    });
+  </script>
+</body>
+</html>

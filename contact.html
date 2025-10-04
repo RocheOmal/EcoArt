@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoArt | Contact</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #2a2a2a);
+      color: #E6DCAE;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+    /* ===== HEADER & NAV ===== */
+    header {
+      background-color: rgba(25, 25, 25, 0.92);
+      padding: 1rem 0;
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(138, 177, 115, 0.5);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 60px; /* Added height for logo alignment */
+    }
+
+    /* Navigation Logo */
+    .nav-logo-link {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+    }
+    .nav-logo {
+      height: 55px;
+      width: auto;
+      border-radius: 50%;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 3px solid rgba(230, 220, 174, 0.2);
+      background-color: #ffffff; /* Added white background */
+    }
+    .nav-logo:hover {
+      transform: rotate(8deg) scale(1.15);
+      border-color: #8AB173;
+      box-shadow: 0 10px 25px rgba(138, 177, 115, 0.4);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      transition: all 0.3s ease;
+    }
+
+    nav a {
+      color: #E6DCAE;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      border: 2px solid transparent;
+      transition: all 0.35s ease;
+    }
+
+    nav a:hover, nav a.active {
+      background: linear-gradient(90deg, #8AB173, #E6DCAE);
+      color: #1a1a1a;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(138, 177, 115, 0.6);
+    }
+
+    /* Hamburger for mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      position: absolute;
+      right: 0;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: #E6DCAE;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    @media(max-width:768px){
+      .hamburger { display: flex; }
+      nav ul {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: rgba(25,25,25,0.95);
+        flex-direction: column;
+        width: 220px;
+        padding: 1rem;
+        display: none;
+        border-radius: 10px;
+      }
+      nav ul.show { display: flex; }
+    }
+
+    /* ===== MAIN ===== */
+    main { padding: 5rem 0 3rem; }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      color: #8AB173;
+      margin-bottom: 1.5rem; /* Adjusted margin */
+      font-weight: 700;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+      letter-spacing: 1px;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 5px;
+      background: linear-gradient(to right, transparent, #8AB173, #E6DCAE, transparent);
+      margin: 1.2rem auto 0;
+      border-radius: 3px;
+    }
+
+    /* New Intro Text Style */
+    .form-intro {
+        text-align: center;
+        max-width: 600px;
+        margin: 2.5rem auto;
+        font-size: 1.1rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+    }
+    .form-intro.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* CONTACT FORM */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(30,30,30,0.65);
+      padding: 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border: 1px solid rgba(138,177,115,0.3);
+      backdrop-filter: blur(8px);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+    .contact-form.visible { opacity: 1; transform: translateY(0); }
+
+    .form-group { margin-bottom: 1.5rem; text-align: left; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #F8F0F0; }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%; padding: 0.9rem;
+      border: 2px solid #444;
+      background: #1a1a1a;
+      color: #E6DCAE;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.35s ease;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #8AB173;
+      box-shadow: 0 0 12px rgba(138,177,115,0.4);
+      transform: scale(1.02);
+      outline: none;
+    }
+    .form-group textarea { min-height: 160px; resize: vertical; }
+
+    button[type="submit"] {
+      display: block; width: 100%; padding: 1rem 2rem;
+      background: linear-gradient(90deg, #8AB173, #a5c495);
+      color: #1a1a1a;
+      font-weight: 600; font-size: 1.1rem;
+      border: none; border-radius: 50px; cursor: pointer;
+      transition: all 0.35s ease;
+      box-shadow: 0 6px 18px rgba(138, 177, 115, 0.35);
+    }
+    button[type="submit"]:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(138, 177, 115, 0.55);
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      background-color: rgba(44,74,53,0.8);
+      color: #c2eabc;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      font-weight: 500;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    .contact-info { text-align: center; margin-top: 4rem; }
+    .social-links {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin: 2rem 0;
+    }
+    .social-links a {
+      display:inline-block; padding:1rem; border-radius:15px;
+      background:rgba(255,255,255,0.05); transition:0.4s all ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transform: perspective(500px) rotateX(0deg);
+    }
+    .social-links a:hover {
+      transform: perspective(500px) rotateX(10deg) translateY(-8px) scale(1.1);
+      background: rgba(138,177,115,0.2);
+      box-shadow: 0 15px 35px rgba(138,177,115,0.5);
+    }
+    .social-links img {
+      width:110px; filter: grayscale(70%) brightness(1.2); transition: all .4s ease;
+    }
+    .social-links a:hover img {
+      filter: grayscale(0%) brightness(1.4) hue-rotate(15deg);
+      transform: rotate(8deg);
+    }
+
+    .phone-number { font-size: 1.2rem; color: #DADADA; margin-top: 1rem; }
+
+    /* FOOTER */
+    footer {
+      background-color: #121212;
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #aaa;
+      border-top: 3px solid rgba(138, 177, 115, 0.4);
+      margin-top: 3rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .section-title { font-size: 2.2rem; }
+      .social-links { gap: 2rem; }
+      .social-links img { width: 90px; }
+    }
+    @media (max-width: 480px) {
+      .section-title { font-size: 2rem; }
+      .social-links { flex-direction: column; gap: 1.5rem; }
+      .phone-number { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="nav-logo-link">
+          <img src="images/eco-art-logo.png" alt="EcoArt Logo" class="nav-logo">
+        </a>
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2 class="section-title">Contact Us</h2>
+      
+      <p class="form-intro">Have a project in mind, a question about our work, or just want to say hello? We'd love to hear from you. Let's create something that honors our planet together.</p>
+
+      <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contactForm">
+        <input type="hidden" name="access_key" value="84a0d411-a51c-49cc-bf06-5d365bdb2fd7">
+
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <div class="success-message" id="successMessage">
+        Thank you! Your message has been sent successfully.
+      </div>
+
+      <div class="contact-info">
+        <div class="social-links">
+          <a href="https://www.behance.net/RocheOmal" target="_blank">
+            <img src="images/Behance-Symbol.png" alt="Behance Portfolio">
+          </a>
+          <a href="https://www.linkedin.com/in/rocheomal3/" target="_blank">
+            <img src="images/linkedin-logo.png" alt="LinkedIn Profile">
+          </a>
+        </div>
+        <div class="phone-number">
+          Tel no: +94 76 850 4360
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 EcoArt. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    $(document).ready(function() {
+      // Animate intro text and form reveal
+      setTimeout(()=> $('.form-intro').addClass('visible'), 100);
+      setTimeout(()=> $('.contact-form').addClass('visible'), 300);
+
+      // FORM HANDLING
+      $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
+        const $form = $(this);
+        const formData = $form.serialize();
+        $.post($form.attr('action'), formData)
+          .done(function(response) {
+            if (response.success) {
+              $('#successMessage').fadeIn(500).delay(3000).fadeOut(500);
+              $form.trigger('reset');
+              $('html, body').animate({ scrollTop: 0 }, 'slow');
+            } else { alert('Oops! Something went wrong.'); }
+          })
+          .fail(function() { alert('Submission failed. Please try again.'); });
+      });
+    });
+  </script>
+</body>
+</html>

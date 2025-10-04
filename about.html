@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | EcoArt</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #2a2a2a);
+      color: #E6DCAE;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+    /* HEADER & NAVIGATION */
+    header {
+      background-color: rgba(25, 25, 25, 0.92);
+      padding: 1.2rem 0;
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(138, 177, 115, 0.5);
+    }
+
+    nav.center-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 60px; /* Added height for logo alignment */
+    }
+
+    /* Navigation Logo */
+    .nav-logo-link {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+    }
+    .nav-logo {
+      height: 55px;
+      width: auto;
+      border-radius: 50%;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 3px solid rgba(230, 220, 174, 0.2);
+      background-color: #ffffff; /* Added white background */
+    }
+    .nav-logo:hover {
+      transform: rotate(8deg) scale(1.15);
+      border-color: #8AB173;
+      box-shadow: 0 10px 25px rgba(138, 177, 115, 0.4);
+    }
+
+    nav ul { list-style: none; display: flex; gap: 1.5rem; justify-content: center; }
+    nav a {
+      color: #E6DCAE; text-decoration: none; font-weight: 600; font-size: 1.1rem;
+      padding: 0.6rem 1.4rem; border-radius: 40px; transition: all 0.35s ease;
+      border: 2px solid transparent;
+    }
+    nav a:hover, nav a.active {
+      background: linear-gradient(90deg, #8AB173, #E6DCAE);
+      color: #1a1a1a;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(138, 177, 115, 0.6);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .hamburger span {
+      width: 25px; height: 3px;
+      background: #E6DCAE;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile menu dropdown */
+    .nav-links.mobile {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background: rgba(25,25,25,0.95);
+      padding: 1.5rem 0;
+      border-bottom: 2px solid rgba(138,177,115,0.3);
+      position: absolute;
+      top: 100%; left: 0;
+    }
+    .nav-links.mobile.open { display: flex; }
+
+    main { padding: 4rem 0 3rem; }
+
+    .section-title {
+      text-align: center; font-size: 3rem; color: #8AB173; margin-bottom: 3rem;
+      font-weight: 700; text-shadow: 3px 3px 6px rgba(0,0,0,0.6); letter-spacing: 1px;
+      position: relative;
+    }
+    .section-title::after {
+      content: ''; display: block; width: 100px; height: 5px;
+      background: linear-gradient(to right, transparent, #8AB173, #E6DCAE, transparent);
+      margin: 1.2rem auto; border-radius: 3px;
+    }
+
+    .bio-content {
+      max-width: 850px; margin: 0 auto 4rem; font-size: 1.2rem;
+      line-height: 1.8; text-align: center; padding: 0 2rem;
+    }
+    .bio-content p { 
+      margin-bottom: 1.8rem; 
+      opacity: 0; 
+      transform: translateY(30px); 
+      transition: all 0.7s ease;
+      text-align: left; /* Updated alignment */
+    }
+    .bio-content p.visible { opacity: 1; transform: translateY(0); }
+    
+    .colorful-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #F94144, #F3722C, #F8961E, #F9C74F, #90BE6D, #43AA8B, #577590);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    /* NEW STYLES FOR IMAGES IN BIO */
+    .bio-image {
+        display: block;
+        width: 100%;
+        max-width: 500px;
+        margin: 2rem auto;
+        border-radius: 15px;
+        border: 1px solid rgba(138, 177, 115, 0.3);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        transition: all 0.35s ease;
+    }
+    .bio-image:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 15px 35px rgba(138, 177, 115, 0.4);
+        border-color: #8AB173;
+    }
+
+    .highlight {
+      color: #F8F0F0; font-weight: 600;
+      background: linear-gradient(90deg, rgba(138, 177, 115, 0.1), rgba(230, 220, 174, 0.2));
+      padding: 0.2rem 0.6rem; border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(138, 177, 115, 0.2);
+    }
+
+    .section-subtitle { font-size: 1.5rem; color: #F8F0F0; margin-top: 3rem; margin-bottom: 1.5rem; font-weight: 600; }
+
+    .social-section {
+      text-align: center; margin: 5rem auto; padding: 2rem;
+      background: rgba(40, 40, 40, 0.4); border-radius: 20px; max-width: 900px;
+    }
+    .social-title { font-size: 1.8rem; color: #F8F0F0; margin-bottom: 2rem; }
+    .social-links { display: flex; justify-content: center; gap: 3.5rem; flex-wrap: wrap; margin: 2rem 0; }
+    .social-link {
+      display: inline-block; padding: 1.5rem; border-radius: 20px;
+      background: rgba(255,255,255,0.05); transition: all 0.4s ease;
+      transform: perspective(500px) rotateX(0deg);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .social-link:hover {
+      transform: perspective(500px) rotateX(10deg) translateY(-10px) scale(1.1);
+      background: rgba(138, 177, 115, 0.25);
+      box-shadow: 0 15px 35px rgba(138, 177, 115, 0.5);
+    }
+    .social-link img {
+      width: 120px; height: auto; filter: grayscale(70%) brightness(1.2); transition: all 0.4s ease;
+    }
+    .social-link:hover img { filter: grayscale(0%) brightness(1.4) hue-rotate(15deg); transform: rotate(8deg); }
+
+    footer {
+      background-color: #121212; padding: 3rem 0 2rem; text-align: center; margin-top: 3rem;
+      border-top: 3px solid rgba(138, 177, 115, 0.4);
+    }
+    .footer-text { font-size: 1rem; color: #aaa; margin-bottom: 1rem; }
+    .copyright { font-size: 0.9rem; color: #666; }
+
+    /* Responsive */
+    @media(max-width:991px){ .hamburger{display:flex;} .nav-links{display:none;} }
+    @media(max-width:768px){
+      .section-title, .colorful-title {font-size:2.4rem;}
+    }
+    @media(max-width:480px){
+      .section-title, .colorful-title {font-size:2.1rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="center-nav">
+        <a href="index.html" class="nav-logo-link">
+          <img src="images/eco-art-logo.png" alt="EcoArt Logo" class="nav-logo">
+        </a>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-title">About EcoArt</h2>
+
+    <div class="bio-content">
+		<h2 class="colorful-title">Where Nature Meets Creativity</h2>
+		<p>EcoArt is a bridge between art and the environment, where creativity flows freely and the beauty of nature is celebrated in every project. Explore interactive experiences, digital art, and eco-inspired designs that inspire and educate.</p>
+		<p>&nbsp;</p>
+		
+        <h3 class="section-subtitle">🌿 Our Vision</h3>
+        <img src="images/girl-red-dress-dancing-waterfall.jpg" alt="Vision of creativity in nature" class="bio-image">
+        <p>EcoArt was born from a simple idea: to create a space where the beauty of nature meets the limitless possibilities of creativity. As multimedia enthusiasts, we wanted to build a bridge between art and the environment—a platform where design, storytelling, and technology come together to celebrate the natural world.</p>
+
+        <h3 class="section-subtitle">🌎 Our Mission</h3>
+        <img src="images/young-beautiful-couple-posing-waterfall-travelers-hikers-backpacks.jpg" alt="Mission to connect people with nature" class="bio-image">
+        <p>Our mission is to <span class="highlight">inspire, educate, and innovate</span>. We strive to spread awareness about the environment by turning creative ideas into experiences that are interactive, informative, and beautiful. Whether it’s through digital paintings, eco-inspired designs, or multimedia workshops, EcoArt aims to spark a deeper connection between people and the planet we call home.</p>
+
+        <h3 class="section-subtitle">🎨 What We Do</h3>
+        <img src="images/woman-artist-paints-picture-canvas-with-brush-marble.jpg" alt="Creating eco-inspired art" class="bio-image">
+        <p>At EcoArt, we experiment with different forms of creativity—from digital illustrations of landscapes and interactive soundscapes to educational campaigns about environmental care. We also collaborate with other artists and designers to host online galleries, art events, and creative learning programs that revolve around <span class="highlight">nature and sustainability</span>.</p>
+    </div>
+
+    <div class="social-section">
+      <h3 class="social-title">Connect With EcoArt</h3>
+      <div class="social-links">
+        <a href="https://www.behance.net/RocheOmal" target="_blank" class="social-link"><img src="images/Behance-Symbol.png" alt="Behance Portfolio"></a>
+        <a href="https://www.linkedin.com/in/rocheomal3/" target="_blank" class="social-link"><img src="images/linkedin-logo.png" alt="LinkedIn Profile"></a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="footer-text">Together, let’s create, imagine, and care for the planet.</p>
+      <p class="copyright">&copy; 2025 EcoArt. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile');
+      navLinks.classList.toggle('open');
+    });
+
+    // Animate bio paragraphs
+    window.addEventListener('DOMContentLoaded', function() {
+      const paragraphs = document.querySelectorAll('.bio-content p');
+      paragraphs.forEach((p, index) => { setTimeout(() => { p.classList.add('visible'); }, index * 400); });
+    });
+
+    // Social links animation
+    $(document).ready(function() {
+      $('.social-link').each(function(index) {
+        $(this).css({ 'opacity': '0', 'transform': 'translateY(40px)', 'transition': 'all 0.8s ease' });
+        setTimeout(() => { $(this).animate({ 'opacity': '1', 'transform': 'translateY(0) rotateX(0deg)' }, 800); }, index * 300);
+      });
+    });
+  </script>
+</body>
+</html>
